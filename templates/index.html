@@ -6,8 +6,17 @@
 <div class="home-intro">
   <div class="home-flame" aria-hidden="true">
     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M19 3C19 3 12.5 9 11.5 16.5C10.8 21.6 13.2 27.5 18.5 30C23.8 27.7 26.4 22.1 25.8 17.1C25 11.2 21.9 7.6 19 3Z" fill="#e85c2c"/>
-      <circle class="home-flame-core" cx="17.6" cy="23.7" r="2.2" fill="#ffd29a"/>
+      <defs>
+        <filter id="flame-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <path d="M18 2C18 2 12 6 10 14C8 20 8 26 14 32C16 34 20 34 22 32C28 26 28 20 26 14C24 6 18 2 18 2Z" fill="#e85c2c"/>
+      <ellipse class="home-flame-inner" cx="18" cy="24" rx="2.5" ry="4" fill="#ffd29a" filter="url(#flame-glow)"/>
     </svg>
   </div>
 

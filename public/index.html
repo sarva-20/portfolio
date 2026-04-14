@@ -6,7 +6,7 @@
   <title>Sarvatarshan Sankar</title>
   <meta name="description" content="Engineer and builder — GenAI, Agentic AI, ML" />
   <link rel="stylesheet" href="/main.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><path fill='%23e85c2c' d='M19 3C19 3 12.5 9 11.5 16.5C10.8 21.6 13.2 27.5 18.5 30C23.8 27.7 26.4 22.1 25.8 17.1C25 11.2 21.9 7.6 19 3Z'/><circle cx='17.6' cy='23.7' r='2.2' fill='%23ffd29a'/></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><defs><filter id='flame-glow'><feGaussianBlur stdDeviation='1.5' result='coloredBlur'/><feMerge><feMergeNode in='coloredBlur'/><feMergeNode in='SourceGraphic'/></feMerge></filter></defs><path fill='%23e85c2c' d='M18 2C18 2 12 6 10 14C8 20 8 26 14 32C16 34 20 34 22 32C28 26 28 20 26 14C24 6 18 2 18 2Z'/><ellipse cx='18' cy='24' rx='2.5' ry='4' fill='%23ffd29a' filter='url(%23flame-glow)'/></svg>" />
 </head>
 <body>
 
@@ -36,10 +36,9 @@
         <path d="M12 16v-3a2 2 0 0 1 4 0v3"/>
       </svg>
     </a>
-    <a href="https://x.com/sarvatarshan20" target="_blank" rel="noopener" title="X">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="m4 4 16 16"/>
-        <path d="m20 4-16 16"/>
+    <a href="https://medium.com/@sarva-20" target="_blank" rel="noopener" title="Medium">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
       </svg>
     </a>
     <a href="mailto:sarva.visions@gmail.com" title="Email">
@@ -62,8 +61,17 @@
 <div class="home-intro">
   <div class="home-flame" aria-hidden="true">
     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M19 3C19 3 12.5 9 11.5 16.5C10.8 21.6 13.2 27.5 18.5 30C23.8 27.7 26.4 22.1 25.8 17.1C25 11.2 21.9 7.6 19 3Z" fill="#e85c2c"/>
-      <circle class="home-flame-core" cx="17.6" cy="23.7" r="2.2" fill="#ffd29a"/>
+      <defs>
+        <filter id="flame-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <path d="M18 2C18 2 12 6 10 14C8 20 8 26 14 32C16 34 20 34 22 32C28 26 28 20 26 14C24 6 18 2 18 2Z" fill="#e85c2c"/>
+      <ellipse class="home-flame-inner" cx="18" cy="24" rx="2.5" ry="4" fill="#ffd29a" filter="url(#flame-glow)"/>
     </svg>
   </div>
 
@@ -153,6 +161,37 @@
       .catch(() => {
         weatherEl.textContent = 'Weather unavailable';
       });
+  }
+
+  // Back-to-top behavior: smooth scroll and threshold-based visibility
+  const backToTopLinks = Array.from(document.querySelectorAll('.back-to-top'));
+  if (backToTopLinks.length) {
+    const threshold = 300;
+    let ticking = false;
+
+    const updateBackToTopVisibility = () => {
+      const shouldShow = window.scrollY > threshold;
+      backToTopLinks.forEach((link) => {
+        link.classList.toggle('is-visible', shouldShow);
+      });
+      ticking = false;
+    };
+
+    backToTopLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateBackToTopVisibility);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    updateBackToTopVisibility();
   }
 })();
 </script>
