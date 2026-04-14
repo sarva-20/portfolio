@@ -12,6 +12,11 @@
   </div>
 
   <h1>hey! I'm Sarvatarshan,<br>an engineer and builder.</h1>
+  
+  <div class="rotating-tagline">
+    <span class="tagline-prefix">› </span><span class="tagline-text">GenAI builder</span>
+  </div>
+  
   <p>I build with GenAI, agentic systems, and ML. Currently studying CSBS at KPRIET Coimbatore.</p>
 </div>
 
@@ -36,6 +41,28 @@
   flame.addEventListener('mouseleave', () => {
     core.style.transform = 'translate(0px, 0px)';
   });
+})();
+
+// Rotating tagline
+(() => {
+  const taglines = [
+    'GenAI builder',
+    'MCP publisher',
+    'F1 fanatic',
+    'FOSS enthusiast & speaker',
+    'IEEE volunteer'
+  ];
+  const taglineText = document.querySelector('.tagline-text');
+  if (!taglineText) return;
+  
+  let currentIndex = 0;
+  
+  const rotate = () => {
+    currentIndex = (currentIndex + 1) % taglines.length;
+    taglineText.textContent = taglines[currentIndex];
+  };
+  
+  setInterval(rotate, 2500);
 })();
 </script>
 {% endblock content %}

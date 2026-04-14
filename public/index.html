@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}{{ config.title }}{% endblock title %}</title>
-  <meta name="description" content="{{ config.description }}" />
+  <title>Sarvatarshan Sankar</title>
+  <meta name="description" content="Engineer and builder — GenAI, Agentic AI, ML" />
   <link rel="stylesheet" href="/main.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><path fill='%23e85c2c' d='M19 3C19 3 12.5 9 11.5 16.5C10.8 21.6 13.2 27.5 18.5 30C23.8 27.7 26.4 22.1 25.8 17.1C25 11.2 21.9 7.6 19 3Z'/><circle cx='17.6' cy='23.7' r='2.2' fill='%23ffd29a'/></svg>" />
 </head>
@@ -12,23 +12,23 @@
 
 <aside class="sidebar">
   <nav>
-    <a href="/" {% if current_path == "/" %}class="active"{% endif %}>home</a>
-    <a href="/posts" {% if current_path is starting_with("/posts") %}class="active"{% endif %}>posts</a>
-    <a href="/projects" {% if current_path is starting_with("/projects") %}class="active"{% endif %}>projects</a>
-    <a href="/about" {% if current_path is starting_with("/about") %}class="active"{% endif %}>about</a>
-    <a href="/resume" {% if current_path is starting_with("/resume") %}class="active"{% endif %}>resume</a>
+    <a href="/" class="active">home</a>
+    <a href="/posts" >posts</a>
+    <a href="/projects" >projects</a>
+    <a href="/about" >about</a>
+    <a href="/resume" >resume</a>
   </nav>
 
   <hr class="sidebar-divider" />
 
   <div class="sidebar-social">
-    <a href="{{ config.extra.github }}" target="_blank" rel="noopener" title="GitHub">
+    <a href="https:&#x2F;&#x2F;github.com&#x2F;sarva-20" target="_blank" rel="noopener" title="GitHub">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M9 19c-5 1.5-5-2.5-7-3"/>
         <path d="M16 22v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77 5.44 5.44 0 0 0 3.5 8.5c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
       </svg>
     </a>
-    <a href="{{ config.extra.linkedin }}" target="_blank" rel="noopener" title="LinkedIn">
+    <a href="https:&#x2F;&#x2F;linkedin.com&#x2F;in&#x2F;sarvatarshan20" target="_blank" rel="noopener" title="LinkedIn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="4"/>
         <path d="M8 11v5"/>
@@ -42,7 +42,7 @@
         <path d="m20 4-16 16"/>
       </svg>
     </a>
-    <a href="mailto:{{ config.extra.email }}" title="Email">
+    <a href="mailto:sarva.visions@gmail.com" title="Email">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <rect x="2" y="4" width="20" height="16" rx="2"/>
         <path d="m2 7 10 7 10-7"/>
@@ -51,14 +51,77 @@
   </div>
 
   <div class="sidebar-location">
-    <div>{{ config.extra.location }}</div>
+    <div>Coimbatore, IN</div>
     <div class="sidebar-time" id="live-time">--:--:-- IST</div>
     <div class="sidebar-weather" id="live-weather">Loading weather...</div>
   </div>
 </aside>
 
 <main class="main">
-  {% block content %}{% endblock content %}
+  
+<div class="home-intro">
+  <div class="home-flame" aria-hidden="true">
+    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 3C19 3 12.5 9 11.5 16.5C10.8 21.6 13.2 27.5 18.5 30C23.8 27.7 26.4 22.1 25.8 17.1C25 11.2 21.9 7.6 19 3Z" fill="#e85c2c"/>
+      <circle class="home-flame-core" cx="17.6" cy="23.7" r="2.2" fill="#ffd29a"/>
+    </svg>
+  </div>
+
+  <h1>hey! I'm Sarvatarshan,<br>an engineer and builder.</h1>
+  
+  <div class="rotating-tagline">
+    <span class="tagline-prefix">› </span><span class="tagline-text">GenAI builder</span>
+  </div>
+  
+  <p>I build with GenAI, agentic systems, and ML. Currently studying CSBS at KPRIET Coimbatore.</p>
+</div>
+
+<script>
+(() => {
+  const flame = document.querySelector('.home-flame');
+  const core = flame ? flame.querySelector('.home-flame-core') : null;
+  if (!flame || !core) return;
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+
+  const maxShift = 1.4;
+
+  flame.addEventListener('mousemove', (event) => {
+    const rect = flame.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    const shiftX = Math.max(-maxShift, Math.min(maxShift, x * 2.4));
+    const shiftY = Math.max(-maxShift, Math.min(maxShift, y * 2.0));
+    core.style.transform = `translate(${shiftX}px, ${shiftY}px)`;
+  });
+
+  flame.addEventListener('mouseleave', () => {
+    core.style.transform = 'translate(0px, 0px)';
+  });
+})();
+
+// Rotating tagline
+(() => {
+  const taglines = [
+    'GenAI builder',
+    'MCP publisher',
+    'F1 fanatic',
+    'FOSS enthusiast & speaker',
+    'IEEE volunteer'
+  ];
+  const taglineText = document.querySelector('.tagline-text');
+  if (!taglineText) return;
+  
+  let currentIndex = 0;
+  
+  const rotate = () => {
+    currentIndex = (currentIndex + 1) % taglines.length;
+    taglineText.textContent = taglines[currentIndex];
+  };
+  
+  setInterval(rotate, 2500);
+})();
+</script>
+
 </main>
 
 <script>

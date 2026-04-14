@@ -1,0 +1,2 @@
+Drop your resume.pdf here.
+It will be served at /files/resume.pdf and linked from the sidebar nav.
