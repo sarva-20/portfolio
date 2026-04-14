@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Sarvatarshan Sankar{% endblock title %}
+
+{% block content %}
+<div class="home-intro">
+  <div class="home-flame" aria-hidden="true">
+    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 3C19 3 12.5 9 11.5 16.5C10.8 21.6 13.2 27.5 18.5 30C23.8 27.7 26.4 22.1 25.8 17.1C25 11.2 21.9 7.6 19 3Z" fill="#e85c2c"/>
+      <circle class="home-flame-core" cx="17.6" cy="23.7" r="2.2" fill="#ffd29a"/>
+    </svg>
+  </div>
+
+  <h1>hey! I'm Sarvatarshan,<br>an engineer and builder.</h1>
+  <p>I build with GenAI, agentic systems, and ML. Currently studying CSBS at KPRIET Coimbatore.</p>
+</div>
+
+<script>
+(() => {
+  const flame = document.querySelector('.home-flame');
+  const core = flame ? flame.querySelector('.home-flame-core') : null;
+  if (!flame || !core) return;
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+
+  const maxShift = 1.4;
+
+  flame.addEventListener('mousemove', (event) => {
+    const rect = flame.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    const shiftX = Math.max(-maxShift, Math.min(maxShift, x * 2.4));
+    const shiftY = Math.max(-maxShift, Math.min(maxShift, y * 2.0));
+    core.style.transform = `translate(${shiftX}px, ${shiftY}px)`;
+  });
+
+  flame.addEventListener('mouseleave', () => {
+    core.style.transform = 'translate(0px, 0px)';
+  });
+})();
+</script>
+{% endblock content %}
