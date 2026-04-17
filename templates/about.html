@@ -13,28 +13,26 @@
   <p>Outside of engineering: IEEE Joint Treasurer, GDG Student Ambassador, FOSS speaker in Coimbatore. I've presented live on stage at GDG and competed at hackathons across Tamil Nadu.</p>
 </div>
 
-<div class="about-section">
-  <div class="carousel" data-carousel="about" aria-label="About highlights carousel">
-    <div class="carousel-track" role="region" aria-live="polite">
-      <div class="carousel-slide">
-        <img class="carousel-image" src="/images/linkedin/post-1.jpg" alt="LinkedIn post highlight 1" loading="lazy" onerror="this.style.display='none'" />
-        <div class="carousel-placeholder">LinkedIn Post 1</div>
-      </div>
-      <div class="carousel-slide">
-        <img class="carousel-image" src="/images/linkedin/post-2.jpg" alt="LinkedIn post highlight 2" loading="lazy" onerror="this.style.display='none'" />
-        <div class="carousel-placeholder">LinkedIn Post 2</div>
-      </div>
-      <div class="carousel-slide">
-        <img class="carousel-image" src="/images/linkedin/post-3.jpg" alt="LinkedIn post highlight 3" loading="lazy" onerror="this.style.display='none'" />
-        <div class="carousel-placeholder">LinkedIn Post 3</div>
-      </div>
-    </div>
-    <div class="carousel-dots" aria-label="Carousel navigation">
-      <button class="carousel-dot active" type="button" data-slide="0" aria-label="Go to slide 1"></button>
-      <button class="carousel-dot" type="button" data-slide="1" aria-label="Go to slide 2"></button>
-      <button class="carousel-dot" type="button" data-slide="2" aria-label="Go to slide 3"></button>
+<h2>moments</h2>
+
+<div class="carousel" id="carousel">
+  <button class="carousel-btn carousel-prev" aria-label="Previous">&#8249;</button>
+  <div class="carousel-track-wrapper">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-slide"><img src="/photos/slide1.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="/photos/slide2.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="/photos/slide3.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="/photos/slide4.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="/photos/slide5.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="/photos/slide6.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="/photos/slide7.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="/photos/slide8.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="/photos/slide9.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="/photos/slide10.jpg" alt="" loading="lazy"></div>
     </div>
   </div>
+  <button class="carousel-btn carousel-next" aria-label="Next">&#8250;</button>
+  <div class="carousel-dots" id="carouselDots"></div>
 </div>
 
 <h2>contact</h2>
@@ -57,72 +55,57 @@
 <a href="#" class="back-to-top">back to top</a>
 
 <script>
-(() => {
-  const carousel = document.querySelector('[data-carousel="about"]');
-  if (!carousel) return;
+(function() {
+  const track = document.getElementById('carouselTrack');
+  const dotsContainer = document.getElementById('carouselDots');
+  const slides = track.querySelectorAll('.carousel-slide');
+  const total = slides.length;
+  let current = 0;
+  let autoTimer = null;
 
-  const track = carousel.querySelector('.carousel-track');
-  const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
-  const dots = Array.from(carousel.querySelectorAll('.carousel-dot'));
-
-  if (!track || slides.length === 0) return;
-
-  const slideCount = slides.length;
-  const intervalMs = 4000;
-  let activeIndex = 0;
-  let intervalId = null;
-  let touchStartX = null;
-
-  const setActive = (nextIndex) => {
-    activeIndex = (nextIndex + slideCount) % slideCount;
-    track.style.transform = `translateX(-${activeIndex * 100}%)`;
-    dots.forEach((dot, index) => {
-      dot.classList.toggle('active', index === activeIndex);
-      dot.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
-    });
-  };
-
-  const startAutoAdvance = () => {
-    if (intervalId) return;
-    intervalId = window.setInterval(() => setActive(activeIndex + 1), intervalMs);
-  };
-
-  const stopAutoAdvance = () => {
-    if (!intervalId) return;
-    window.clearInterval(intervalId);
-    intervalId = null;
-  };
-
-  dots.forEach((dot) => {
-    dot.addEventListener('click', () => {
-      const index = Number(dot.getAttribute('data-slide'));
-      if (!Number.isNaN(index)) {
-        setActive(index);
-      }
-    });
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
   });
 
-  carousel.addEventListener('mouseenter', stopAutoAdvance);
-  carousel.addEventListener('mouseleave', startAutoAdvance);
+  function goTo(index) {
+    current = (index + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    document.querySelectorAll('.carousel-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
 
-  carousel.addEventListener('touchstart', (event) => {
-    touchStartX = event.changedTouches[0].clientX;
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function startAuto() {
+    autoTimer = setInterval(next, 4000);
+  }
+
+  function stopAuto() {
+    clearInterval(autoTimer);
+  }
+
+  document.querySelector('.carousel-prev').addEventListener('click', () => { stopAuto(); prev(); startAuto(); });
+  document.querySelector('.carousel-next').addEventListener('click', () => { stopAuto(); next(); startAuto(); });
+
+  const wrapper = document.querySelector('.carousel-track-wrapper');
+  wrapper.addEventListener('mouseenter', stopAuto);
+  wrapper.addEventListener('mouseleave', startAuto);
+
+  // Touch swipe
+  let touchStartX = 0;
+  wrapper.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  wrapper.addEventListener('touchend', e => {
+    const delta = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 50) { stopAuto(); delta > 0 ? next() : prev(); startAuto(); }
   }, { passive: true });
 
-  carousel.addEventListener('touchend', (event) => {
-    if (touchStartX === null) return;
-    const touchEndX = event.changedTouches[0].clientX;
-    const delta = touchEndX - touchStartX;
-    if (delta > 50) {
-      setActive(activeIndex - 1);
-    } else if (delta < -50) {
-      setActive(activeIndex + 1);
-    }
-    touchStartX = null;
-  }, { passive: true });
-
-  setActive(0);
-  startAutoAdvance();
+  startAuto();
 })();
 </script>
 {% endblock content %}
