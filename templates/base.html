@@ -83,34 +83,34 @@
   if (weatherEl) {
     const hasHtmlMarkup = (text) => /<!doctype html|<html|<head|<body|<style|<script/i.test(text);
     const weatherCodeLabel = {
-      0: 'Clear',
-      1: 'Mostly clear',
-      2: 'Partly cloudy',
-      3: 'Overcast',
-      45: 'Fog',
-      48: 'Rime fog',
-      51: 'Light drizzle',
-      53: 'Drizzle',
-      55: 'Heavy drizzle',
-      56: 'Freezing drizzle',
-      57: 'Heavy freezing drizzle',
-      61: 'Light rain',
-      63: 'Rain',
-      65: 'Heavy rain',
-      66: 'Freezing rain',
-      67: 'Heavy freezing rain',
-      71: 'Light snow',
-      73: 'Snow',
-      75: 'Heavy snow',
-      77: 'Snow grains',
-      80: 'Rain showers',
-      81: 'Heavy showers',
-      82: 'Violent showers',
-      85: 'Snow showers',
-      86: 'Heavy snow showers',
-      95: 'Thunderstorm',
-      96: 'Thunderstorm hail',
-      99: 'Severe thunderstorm hail'
+      0: 'Veyil semma kaayuthu',
+      1: 'Konjam mega irukku',
+      2: 'Vaanam decide pannala',
+      3: 'Mega full-ah mooditu',
+      45: 'Munnadi paaka kastam',
+      48: 'Munnadi paaka kastam',
+      51: 'Siru thooval da',
+      53: 'Umbrella ready vechuko',
+      55: 'Nalla mazhai adikkuthu',
+      56: 'Kuluru mazhai varudhu',
+      57: 'Kuluru mazhai balama irukku',
+      61: 'Mazhai aarambichiduchu',
+      63: 'Nalla mazhai varudhu',
+      65: 'Semma heavy mazhai',
+      66: 'Kuluru mazhai da idhu',
+      67: 'Kuluru heavy mazhai da',
+      71: 'Sila snow varudhu',
+      73: 'Snow nalla vizhudhu',
+      75: 'Snow semma heavy',
+      77: 'Snow grains varudhu',
+      80: 'Mazhai shower varudhu',
+      81: 'Heavy shower da',
+      82: 'Romba violent shower',
+      85: 'Snow shower varudhu',
+      86: 'Heavy snow shower da',
+      95: 'Poyidunga, idiyum mazhaiyum',
+      96: 'Idiyoda kallu mazhai chance',
+      99: 'Severe idi-kallu mazhai'
     };
 
     const fetchWttr = async () => {
@@ -140,8 +140,7 @@
     };
 
     Promise.resolve()
-      .then(fetchWttr)
-      .catch(fetchOpenMeteo)
+      .then(fetchOpenMeteo)
       .then((weatherText) => {
         weatherEl.textContent = weatherText;
       })

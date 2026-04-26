@@ -6,33 +6,42 @@
 <h1>about</h1>
 
 <div class="about-section">
-  <p>Hiya, fellow internet scroller. I'm Sarvatarshan — you may also find me as <code>sarva-20</code> on the internet. I'm a third-year CSBS student at KPRIET Coimbatore, building things at the intersection of GenAI, agentic systems, and machine learning.</p>
+  <p>Hiya, fellow internet scroller. I'm Sarvatarshan — you may also find me as <code>sarva-20</code> on the internet. Third-year Bachelor of Technology student in Computer Science and Business Systems at KPRIET, Coimbatore.</p>
 
-  <p>I like naming my projects after mythology and things that mean something — Heimdall, ArgusAI, Theduvaan. I believe tooling should have a soul.</p>
+  <p>I build at the intersection of GenAI, agentic systems, and machine learning. I like naming projects after mythology and things that mean something — Heimdall, ArgusAI, Theduvaan. I believe tooling should have a soul.</p>
+</div>
 
-  <p>Outside of engineering: IEEE Joint Treasurer, GDG Student Ambassador, FOSS speaker in Coimbatore. I've presented live on stage at GDG and competed at hackathons across Tamil Nadu.</p>
+<h2>community</h2>
+
+<div class="about-section">
+  <p>IEEE KPRIET Media Head, Google Student Ambassador, FOSS speaker in Coimbatore. I organise, I show up, and I try to give back to the communities that taught me.</p>
+</div>
+
+<h2>achievements</h2>
+
+<div class="about-section">
+  <p>1st at MXCEL'23 · 3rd at Krishnecs'24 · 1st at Prodothon'25 · 3rd at Hackfest'25.</p>
 </div>
 
 <h2>moments</h2>
-
-<div class="carousel" id="carousel">
-  <button class="carousel-btn carousel-prev" aria-label="Previous">&#8249;</button>
-  <div class="carousel-track-wrapper">
-    <div class="carousel-track" id="carouselTrack">
-      <div class="carousel-slide"><img src="/photos/slide1.jpg" alt="" loading="lazy"></div>
-      <div class="carousel-slide"><img src="/photos/slide2.jpg" alt="" loading="lazy"></div>
-      <div class="carousel-slide"><img src="/photos/slide3.jpg" alt="" loading="lazy"></div>
-      <div class="carousel-slide"><img src="/photos/slide4.jpg" alt="" loading="lazy"></div>
-      <div class="carousel-slide"><img src="/photos/slide5.jpg" alt="" loading="lazy"></div>
-      <div class="carousel-slide"><img src="/photos/slide6.jpg" alt="" loading="lazy"></div>
-      <div class="carousel-slide"><img src="/photos/slide7.jpg" alt="" loading="lazy"></div>
-      <div class="carousel-slide"><img src="/photos/slide8.jpg" alt="" loading="lazy"></div>
-      <div class="carousel-slide"><img src="/photos/slide9.jpg" alt="" loading="lazy"></div>
-      <div class="carousel-slide"><img src="/photos/slide10.jpg" alt="" loading="lazy"></div>
+<div class="filmstrip" id="filmstrip">
+  <button class="fs-btn fs-prev" aria-label="Previous">&#8249;</button>
+  <div class="fs-viewport" id="fsViewport">
+    <div class="fs-track" id="fsTrack">
+      <div class="fs-slide"><img src="/photos/slide1.jpg" alt="" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide2.jpg" alt="" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide3.jpg" alt="" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide4.jpg" alt="" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide5.jpg" alt="" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide6.jpg" alt="" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide7.jpg" alt="" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide8.jpg" alt="" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide9.jpg" alt="" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide10.jpg" alt="" loading="lazy"></div>
     </div>
   </div>
-  <button class="carousel-btn carousel-next" aria-label="Next">&#8250;</button>
-  <div class="carousel-dots" id="carouselDots"></div>
+  <button class="fs-btn fs-next" aria-label="Next">&#8250;</button>
+  <div class="fs-dots" id="fsDots"></div>
 </div>
 
 <h2>contact</h2>
@@ -43,6 +52,7 @@
   <ul class="contact-list">
     <li>Github: <a href="https://github.com/sarva-20" target="_blank" rel="noopener">@sarva-20</a></li>
     <li>LinkedIn: <a href="https://linkedin.com/in/sarvatarshan20" target="_blank" rel="noopener">sarvatarshan20</a></li>
+    <li>Medium: <a href="https://medium.com/@sarva-20" target="_blank" rel="noopener">@sarva-20</a></li>
   </ul>
 </div>
 
@@ -55,56 +65,96 @@
 <a href="#" class="back-to-top">back to top</a>
 
 <script>
-(function() {
-  const track = document.getElementById('carouselTrack');
-  const dotsContainer = document.getElementById('carouselDots');
-  const slides = track.querySelectorAll('.carousel-slide');
+(() => {
+  const filmstrip = document.getElementById('filmstrip');
+  const viewport = document.getElementById('fsViewport');
+  const track = document.getElementById('fsTrack');
+  const dotsContainer = document.getElementById('fsDots');
+  if (!filmstrip || !viewport || !track || !dotsContainer) return;
+
+  const slides = Array.from(track.querySelectorAll('.fs-slide'));
   const total = slides.length;
+  if (!total) return;
+
   let current = 0;
   let autoTimer = null;
+  let touchStartX = 0;
 
-  // Build dots
+  const goTo = (index) => {
+    current = (index + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dotsContainer.querySelectorAll('.fs-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === current);
+    });
+  };
+
+  const next = () => goTo(current + 1);
+  const prev = () => goTo(current - 1);
+
+  const startAuto = () => {
+    if (autoTimer) return;
+    autoTimer = window.setInterval(next, 4000);
+  };
+
+  const stopAuto = () => {
+    if (!autoTimer) return;
+    window.clearInterval(autoTimer);
+    autoTimer = null;
+  };
+
   slides.forEach((_, i) => {
     const dot = document.createElement('button');
-    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goTo(i));
+    dot.className = 'fs-dot';
+    dot.type = 'button';
+    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    dot.addEventListener('click', () => {
+      stopAuto();
+      goTo(i);
+      startAuto();
+    });
     dotsContainer.appendChild(dot);
   });
 
-  function goTo(index) {
-    current = (index + total) % total;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    document.querySelectorAll('.carousel-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === current);
+  const prevBtn = filmstrip.querySelector('.fs-prev');
+  const nextBtn = filmstrip.querySelector('.fs-next');
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      stopAuto();
+      prev();
+      startAuto();
     });
   }
 
-  function next() { goTo(current + 1); }
-  function prev() { goTo(current - 1); }
-
-  function startAuto() {
-    autoTimer = setInterval(next, 4000);
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      stopAuto();
+      next();
+      startAuto();
+    });
   }
 
-  function stopAuto() {
-    clearInterval(autoTimer);
-  }
+  viewport.addEventListener('mouseenter', stopAuto);
+  viewport.addEventListener('mouseleave', startAuto);
 
-  document.querySelector('.carousel-prev').addEventListener('click', () => { stopAuto(); prev(); startAuto(); });
-  document.querySelector('.carousel-next').addEventListener('click', () => { stopAuto(); next(); startAuto(); });
-
-  const wrapper = document.querySelector('.carousel-track-wrapper');
-  wrapper.addEventListener('mouseenter', stopAuto);
-  wrapper.addEventListener('mouseleave', startAuto);
-
-  // Touch swipe
-  let touchStartX = 0;
-  wrapper.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  wrapper.addEventListener('touchend', e => {
-    const delta = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(delta) > 50) { stopAuto(); delta > 0 ? next() : prev(); startAuto(); }
+  viewport.addEventListener('touchstart', (event) => {
+    touchStartX = event.changedTouches[0].clientX;
   }, { passive: true });
 
+  viewport.addEventListener('touchend', (event) => {
+    const delta = touchStartX - event.changedTouches[0].clientX;
+    if (Math.abs(delta) > 40) {
+      stopAuto();
+      if (delta > 0) {
+        next();
+      } else {
+        prev();
+      }
+      startAuto();
+    }
+  }, { passive: true });
+
+  goTo(0);
   startAuto();
 })();
 </script>

@@ -26,7 +26,22 @@
     <span class="tagline-prefix">› </span><span class="tagline-text">GenAI builder</span>
   </div>
   
-  <p>I build with GenAI, agentic systems, and ML. Currently studying CSBS at KPRIET Coimbatore.</p>
+  <p>I build with GenAI, agentic systems, and ML. Undergrad — Bachelor of Technology at KPR Institute of Engineering and Technology, Coimbatore.</p>
+
+  <div class="gh-graph home-graph" style="margin-left: auto; margin-right: auto;">
+    <img
+      src="https://raw.githubusercontent.com/sarva-20/sarva-20/output/github-snake.svg"
+      alt="GitHub contribution snake"
+      class="gh-snake"
+      loading="lazy"
+    />
+  </div>
+
+  <p class="gh-link">
+    <a href="https://github.com/sarva-20" target="_blank" rel="noopener" id="gh-contrib-link">
+      view activity on github · sarva-20 ↗
+    </a>
+  </p>
 </div>
 
 <script>
@@ -73,5 +88,18 @@
   
   setInterval(rotate, 2500);
 })();
+
+fetch('https://github-contributions-api.jogruber.de/v4/sarva-20?y=last')
+  .then(r => r.json())
+  .then(data => {
+    const total = data.total && data.total.lastYear
+      ? data.total.lastYear
+      : null;
+    const link = document.getElementById('gh-contrib-link');
+    if (link && total) {
+      link.textContent = total + ' contributions in the last year · sarva-20 ↗';
+    }
+  })
+  .catch(() => {});
 </script>
 {% endblock content %}

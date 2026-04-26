@@ -5,143 +5,188 @@
 {% block content %}
 <h1>projects</h1>
 
-<!-- ANCHOR PROJECTS -->
-<div class="projects-section">
+<div class="projects-bento">
   <div class="projects-section-label">⬛ anchor</div>
 
-  <div class="project-card">
+  <article class="project-card project-card-anchor">
     <div class="project-card-header">
       <span class="project-name">ProcureX</span>
       <span class="project-tag tag-live">live</span>
       <span class="project-tag tag-open-source">open source</span>
     </div>
     <div class="project-desc">4-agent autonomous Indian government tender analyzer. Agents handle requirements extraction via RAG, eligibility scoring, market intelligence, and bid strategy.</div>
-    <div class="project-stack">AWS Strands · Gemini 2.5 Flash · LiteLLM · ChromaDB · FastAPI · React</div>
+    <div class="project-stack-pills">
+      <span class="stack-pill">AWS Strands</span>
+      <span class="stack-pill">Gemini 2.5 Flash</span>
+      <span class="stack-pill">LiteLLM</span>
+      <span class="stack-pill">ChromaDB</span>
+      <span class="stack-pill">FastAPI</span>
+      <span class="stack-pill">React</span>
+    </div>
     <div class="project-links">
       <a href="https://procure-x-v01.vercel.app" target="_blank" rel="noopener">↗ live</a>
       <a href="https://github.com/sarva-20/ProcureX" target="_blank" rel="noopener">↗ github</a>
     </div>
-  </div>
+  </article>
 
-  <div class="project-card">
+  <article class="project-card project-card-anchor">
     <div class="project-card-header">
       <span class="project-name">Heimdall MCP</span>
       <span class="project-tag tag-live">live</span>
       <span class="project-tag tag-open-source">open source</span>
     </div>
     <div class="project-desc">33-tool macOS MCP server bridging Claude AI with macOS via AppleScript and native APIs. 6 categories: system monitoring, app control, Spotify, window management, clipboard, notifications. Listed on mcpservers.org.</div>
-    <div class="project-stack">TypeScript · Bun · MCP SDK · React · Vite</div>
+    <div class="project-stack-pills">
+      <span class="stack-pill">TypeScript</span>
+      <span class="stack-pill">Bun</span>
+      <span class="stack-pill">MCP SDK</span>
+      <span class="stack-pill">React</span>
+      <span class="stack-pill">Vite</span>
+    </div>
     <div class="project-links">
       <a href="https://heimdall-mcp-v02.vercel.app" target="_blank" rel="noopener">↗ live</a>
       <a href="https://github.com/sarva-20" target="_blank" rel="noopener">↗ github</a>
     </div>
-  </div>
+  </article>
 
-  <div class="project-card">
+  <article class="project-card project-card-anchor">
     <div class="project-card-header">
       <span class="project-name">BoxMachiBox</span>
       <span class="project-tag tag-live">live</span>
     </div>
     <div class="project-desc">F1 podium predictor. XGBoost trained on 1,558 race samples with 47 engineered features. 93.89% accuracy validated on real unseen 2025 race data across 4 race weekends.</div>
-    <div class="project-stack">XGBoost · scikit-learn · FastAPI · Next.js · Vercel · Render</div>
+    <div class="project-stack-pills">
+      <span class="stack-pill">XGBoost</span>
+      <span class="stack-pill">scikit-learn</span>
+      <span class="stack-pill">FastAPI</span>
+      <span class="stack-pill">Next.js</span>
+      <span class="stack-pill">Vercel</span>
+      <span class="stack-pill">Render</span>
+    </div>
     <div class="project-links">
       <a href="https://boxmachibox.vercel.app" target="_blank" rel="noopener">↗ live</a>
       <a href="https://github.com/sarva-20" target="_blank" rel="noopener">↗ github</a>
     </div>
-  </div>
-</div>
+  </article>
 
-<!-- AI / AGENTIC PROJECTS -->
-<div class="projects-section">
   <div class="projects-section-label">◈ ai & agentic</div>
 
-  <div class="project-card">
+  <article class="project-card project-card-regular">
     <div class="project-card-header">
       <span class="project-name">ArgusAI</span>
       <span class="project-tag tag-in-progress">layer 1 complete</span>
     </div>
     <div class="project-desc">AI monitoring and intelligence digest system. Multi-model pipeline with automated summarization and delivery via Gmail.</div>
-    <div class="project-stack">Ollama · Gemini API · ChromaDB · n8n · Gmail SMTP</div>
+    <div class="project-stack-pills">
+      <span class="stack-pill">Ollama</span>
+      <span class="stack-pill">Gemini API</span>
+      <span class="stack-pill">ChromaDB</span>
+      <span class="stack-pill is-extra">n8n</span>
+      <span class="stack-pill is-extra">Gmail SMTP</span>
+    </div>
     <div class="project-links">
       <a href="https://github.com/sarva-20/ArgusAI" target="_blank" rel="noopener">↗ github</a>
     </div>
-  </div>
+  </article>
 
-  <div class="project-card">
+  <article class="project-card project-card-regular">
     <div class="project-card-header">
       <span class="project-name">VeritaAI</span>
-      <span class="project-tag tag-open-source">hackathon</span>
+      <span class="project-tag tag-hackathon">hackathon</span>
     </div>
     <div class="project-desc">Medical document intelligence platform with a two-layer guardrail system — 15+ regex patterns for prompt injection defense, separate patient/doctor system prompts.</div>
-    <div class="project-stack">FastAPI · Gemini 2.5 Flash · Python</div>
+    <div class="project-stack-pills">
+      <span class="stack-pill">FastAPI</span>
+      <span class="stack-pill">Gemini 2.5 Flash</span>
+      <span class="stack-pill">Python</span>
+    </div>
     <div class="project-links">
       <a href="https://github.com/sarva-20" target="_blank" rel="noopener">↗ github</a>
     </div>
-  </div>
+  </article>
 
-  <div class="project-card">
+  <article class="project-card project-card-regular">
     <div class="project-card-header">
       <span class="project-name">Repo Roast</span>
-      <span class="project-tag tag-live">stage demo</span>
+      <span class="project-tag tag-stage-demo">stage demo</span>
     </div>
     <div class="project-desc">Live GDG Coimbatore stage demo. Two parallel agents roast and rewrite bad GitHub code side by side. Fire-themed split-panel UI with streaming markdown.</div>
-    <div class="project-stack">Google Antigravity · React · Vite</div>
+    <div class="project-stack-pills">
+      <span class="stack-pill">Google Antigravity</span>
+      <span class="stack-pill">React</span>
+      <span class="stack-pill">Vite</span>
+    </div>
     <div class="project-links">
       <a href="https://github.com/sarva-20" target="_blank" rel="noopener">↗ github</a>
     </div>
-  </div>
-</div>
+  </article>
 
-<!-- TOOLS & INFRASTRUCTURE -->
-<div class="projects-section">
   <div class="projects-section-label">⚙ tools & infra</div>
 
-  <div class="project-card">
+  <article class="project-card project-card-regular">
     <div class="project-card-header">
       <span class="project-name">Theduvaan</span>
     </div>
     <div class="project-desc">Stateful web scraper with LLM-powered Q&A. POST /scrape returns session_id; POST /ask returns an LLM answer grounded in the scraped content. Named from Tamil for "one who searches."</div>
-    <div class="project-stack">FastAPI · Playwright · BeautifulSoup4 · Ollama</div>
+    <div class="project-stack-pills">
+      <span class="stack-pill">FastAPI</span>
+      <span class="stack-pill">Playwright</span>
+      <span class="stack-pill">BeautifulSoup4</span>
+      <span class="stack-pill is-extra">Ollama</span>
+    </div>
     <div class="project-links">
       <a href="https://github.com/sarva-20" target="_blank" rel="noopener">↗ github</a>
     </div>
-  </div>
+  </article>
 
-  <div class="project-card">
+  <article class="project-card project-card-regular">
     <div class="project-card-header">
       <span class="project-name">AgenticAngaadi</span>
       <span class="project-tag tag-live">live</span>
       <span class="project-tag tag-open-source">open source</span>
     </div>
     <div class="project-desc">Open source implementation of Google's Universal Commerce Protocol. Agentic commerce layer built to spec.</div>
-    <div class="project-stack">Node.js · TypeScript · Express</div>
+    <div class="project-stack-pills">
+      <span class="stack-pill">Node.js</span>
+      <span class="stack-pill">TypeScript</span>
+      <span class="stack-pill">Express</span>
+    </div>
     <div class="project-links">
       <a href="https://agenticangaadi.vercel.app" target="_blank" rel="noopener">↗ live</a>
       <a href="https://github.com/sarva-20/agenticangaadi" target="_blank" rel="noopener">↗ github</a>
     </div>
-  </div>
+  </article>
 
-  <div class="project-card">
+  <article class="project-card project-card-regular">
     <div class="project-card-header">
       <span class="project-name">Gmail Automation</span>
     </div>
     <div class="project-desc">Multi-phase email classification system. Classifies into Certifications, Meetups & Events, and Applications labels. Google Apps Script → production N8N on Docker with OAuth2.</div>
-    <div class="project-stack">Google Apps Script · Gemini API · N8N · Docker</div>
+    <div class="project-stack-pills">
+      <span class="stack-pill">Google Apps Script</span>
+      <span class="stack-pill">Gemini API</span>
+      <span class="stack-pill">N8N</span>
+      <span class="stack-pill is-extra">Docker</span>
+    </div>
     <div class="project-links">
       <a href="https://github.com/sarva-20" target="_blank" rel="noopener">↗ github</a>
     </div>
-  </div>
+  </article>
 
-  <div class="project-card">
+  <article class="project-card project-card-regular">
     <div class="project-card-header">
       <span class="project-name">DSA Automation</span>
     </div>
     <div class="project-desc">GitHub Actions workflow auto-organizing LeetCode submissions into performance-based subfolders. LeetHub sync + LeetCard stats badge in README.</div>
-    <div class="project-stack">GitHub Actions · LeetHub · Git</div>
+    <div class="project-stack-pills">
+      <span class="stack-pill">GitHub Actions</span>
+      <span class="stack-pill">LeetHub</span>
+      <span class="stack-pill">Git</span>
+    </div>
     <div class="project-links">
       <a href="https://github.com/sarva-20" target="_blank" rel="noopener">↗ github</a>
     </div>
-  </div>
+  </article>
 </div>
 
 <a href="#" class="back-to-top">back to top</a>
