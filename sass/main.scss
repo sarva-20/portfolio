@@ -3,11 +3,18 @@
 :root {
   --bg: #f9f9f7;
   --text: #1a1a1a;
-  --muted: #6b7280;
+  --muted: #656c79;
   --accent: #e85c2c;
+  --accent-text: #c4441a;
   --border: #e5e5e0;
   --sidebar-w: 180px;
   --content-max: 620px;
+  --font-mono: 'Geist Mono', 'Courier New', monospace;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --surface-pill: #efefeb;
+  --surface-soft: #f6f5f2;
+  --surface-hover: #f3f1ee;
+  --border-hover: #c5c5bf;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,7 +29,7 @@ body {
   background-image: radial-gradient(circle, rgba(209, 208, 204, 0.5) 1px, transparent 1px);
   background-size: 24px 24px;
   color: var(--text);
-  font-family: 'Geist Mono', 'Courier New', monospace;
+  font-family: var(--font-mono);
   font-size: 0.9rem;
   line-height: 1.7;
   display: grid;
@@ -144,7 +151,7 @@ body {
 .sidebar-weather {
   margin-top: 0.35rem;
   font-size: 0.75rem;
-  font-family: 'Geist Mono', monospace;
+  font-family: var(--font-mono);
   color: var(--muted);
 }
 
@@ -153,7 +160,7 @@ body {
   display: inline-block;
   margin-bottom: 1.2rem;
   font-size: 0.85rem;
-  font-family: 'Geist Mono', monospace;
+  font-family: var(--font-mono);
   color: var(--muted);
   min-height: 1.4rem;
 }
@@ -196,7 +203,7 @@ body {
 
 /* TYPOGRAPHY */
 h1 {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 2.2rem;
   font-weight: 400;
   line-height: 1.2;
@@ -205,7 +212,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 1.3rem;
   font-weight: 400;
   margin: 2.5rem 0 0.75rem;
@@ -223,11 +230,11 @@ h3 {
 p { margin-bottom: 1rem; color: var(--text); }
 
 a { color: var(--text); }
-a:hover { color: var(--accent); }
+a:hover { color: var(--accent-text); }
 
 code {
-  font-family: 'Geist Mono', monospace;
-  background: #efefeb;
+  font-family: var(--font-mono);
+  background: var(--surface-pill);
   padding: 0.1em 0.4em;
   border-radius: 3px;
   font-size: 0.85em;
@@ -247,7 +254,7 @@ code {
 /* POSTS LIST */
 .posts-year {
   position: relative;
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 1.45rem;
   font-weight: 400;
   margin: 2rem 0 1.1rem;
@@ -276,7 +283,7 @@ code {
 }
 
 .post-item:hover {
-  background: #f3f1ee;
+  background: var(--surface-hover);
   border-left-color: var(--accent);
   transform: translateX(4px);
 }
@@ -329,7 +336,7 @@ code {
   font-size: 0.72rem;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: #f6f5f2;
+  background: var(--surface-soft);
   padding: 0.2rem 0.55rem;
   color: var(--muted);
   white-space: nowrap;
@@ -353,12 +360,12 @@ code {
 
 .post-item-placeholder {
   border-left: 1px solid var(--accent);
-  background: #f6f5f2;
+  background: var(--surface-soft);
   transform: none;
 }
 
 .post-item-placeholder:hover {
-  background: #f6f5f2;
+  background: var(--surface-soft);
   border-left-color: var(--accent);
   transform: none;
 }
@@ -369,7 +376,7 @@ code {
 }
 
 .post-item-placeholder .post-item-desc {
-  color: #8b9097;
+  color: var(--muted);
   white-space: normal;
 }
 
@@ -392,7 +399,7 @@ code {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--accent);
+  color: var(--accent-text);
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
   margin-top: 2rem;
@@ -411,7 +418,7 @@ code {
 }
 
 .project-card:hover {
-  border-color: #c5c5bf;
+  border-color: var(--border-hover);
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
 }
 
@@ -433,14 +440,14 @@ code {
 }
 
 .project-card-anchor .project-name {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 1.3rem;
   font-weight: 400;
   line-height: 1.1;
 }
 
 .project-card-regular .project-name {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.1;
@@ -480,7 +487,7 @@ code {
 }
 
 .stack-pill {
-  background: #efefeb;
+  background: var(--surface-pill);
   color: var(--muted);
   font-size: 0.7rem;
   padding: 0.15em 0.5em;
@@ -580,6 +587,22 @@ code {
   background: white;
   box-shadow: 0 4px 16px rgba(0,0,0,0.16);
   transform: translateY(-50%) scale(1.05);
+}
+
+.fs-pause {
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 30px;
+  height: 30px;
+  transform: none;
+}
+
+.fs-pause:hover { transform: scale(1.05); }
+
+.fs-pause svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
 }
 
 .fs-prev { left: 0.75rem; }
@@ -716,13 +739,16 @@ code {
   text-decoration: none;
   margin-top: 4rem;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
 }
 
 .back-to-top.is-visible {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition: opacity 0.3s ease, visibility 0s;
 }
 
 .back-to-top:hover { color: var(--text); }
@@ -783,5 +809,27 @@ hr {
     max-width: 100%;
     left: 0;
     transform: none;
+  }
+}
+
+/* FOCUS */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  transition: none; /* `transition: all` on some controls would animate the outline in */
+}
+
+.sidebar-social a:focus-visible,
+.post-item:focus-visible,
+.resume-link:focus-visible { border-radius: 4px; }
+
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }
