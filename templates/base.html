@@ -3,20 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}{{ config.title }}{% endblock title %}</title>
-  <meta name="description" content="{{ config.description }}" />
+  {%- set doc = page | default(value=section | default(value=config)) %}
+  {%- set meta_title = doc.title | default(value=config.title) %}
+  {%- set meta_desc = doc.description | default(value=config.description) %}
+  {%- set og_image = get_url(path=config.extra.og_image) %}
+  <title>{% block title %}{{ meta_title }}{% endblock title %}</title>
+  <meta name="description" content="{{ meta_desc }}" />
+  <meta name="theme-color" content="#f9f9f7" />
+  {%- if current_url %}
+  <link rel="canonical" href="{{ current_url }}" />
+  {%- endif %}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="{{ config.title }}" />
+  <meta property="og:title" content="{{ meta_title }}" />
+  <meta property="og:description" content="{{ meta_desc }}" />
+  {%- if current_url %}
+  <meta property="og:url" content="{{ current_url }}" />
+  {%- endif %}
+  <meta property="og:image" content="{{ og_image }}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sarvatarshan Sankar — engineer and builder" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ meta_title }}" />
+  <meta name="twitter:description" content="{{ meta_desc }}" />
+  <meta name="twitter:image" content="{{ og_image }}" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap" />
   <link rel="stylesheet" href="/main.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><defs><filter id='flame-glow'><feGaussianBlur stdDeviation='1.5' result='coloredBlur'/><feMerge><feMergeNode in='coloredBlur'/><feMergeNode in='SourceGraphic'/></feMerge></filter></defs><path fill='%23e85c2c' d='M18 2C18 2 12 6 10 14C8 20 8 26 14 32C16 34 20 34 22 32C28 26 28 20 26 14C24 6 18 2 18 2Z'/><ellipse cx='18' cy='24' rx='2.5' ry='4' fill='%23ffd29a' filter='url(%23flame-glow)'/></svg>" />
 </head>
 <body>
 
+{%- set cp = current_path | default(value="") %}
 <aside class="sidebar">
   <nav>
-    <a href="/" {% if current_path == "/" %}class="active"{% endif %}>home</a>
-    <a href="/posts" {% if current_path is starting_with("/posts") %}class="active"{% endif %}>posts</a>
-    <a href="/projects" {% if current_path is starting_with("/projects") %}class="active"{% endif %}>projects</a>
-    <a href="/about" {% if current_path is starting_with("/about") %}class="active"{% endif %}>about</a>
-    <a href="/resume" {% if current_path is starting_with("/resume") %}class="active"{% endif %}>resume</a>
+    <a href="/" {% if cp == "/" %}class="active"{% endif %}>home</a>
+    <a href="/posts" {% if cp is starting_with("/posts") %}class="active"{% endif %}>posts</a>
+    <a href="/projects" {% if cp is starting_with("/projects") %}class="active"{% endif %}>projects</a>
+    <a href="/about" {% if cp is starting_with("/about") %}class="active"{% endif %}>about</a>
+    <a href="/resume" {% if cp is starting_with("/resume") %}class="active"{% endif %}>resume</a>
   </nav>
 
   <hr class="sidebar-divider" />
