@@ -22,23 +22,24 @@
 </div>
 
 <h2>moments</h2>
-<div class="filmstrip" id="filmstrip">
-  <button class="fs-btn fs-prev" aria-label="Previous">&#8249;</button>
+<div class="filmstrip" id="filmstrip" role="region" aria-roledescription="carousel" aria-label="moments">
+  <button class="fs-btn fs-pause" id="fsPause" type="button" aria-label="Pause slideshow"></button>
+  <button class="fs-btn fs-prev" type="button" aria-label="Previous">&#8249;</button>
   <div class="fs-viewport" id="fsViewport">
     <div class="fs-track" id="fsTrack">
-      <div class="fs-slide"><img src="/photos/slide1.jpg" alt="" loading="lazy"></div>
-      <div class="fs-slide"><img src="/photos/slide2.jpg" alt="" loading="lazy"></div>
-      <div class="fs-slide"><img src="/photos/slide3.jpg" alt="" loading="lazy"></div>
-      <div class="fs-slide"><img src="/photos/slide4.jpg" alt="" loading="lazy"></div>
-      <div class="fs-slide"><img src="/photos/slide5.jpg" alt="" loading="lazy"></div>
-      <div class="fs-slide"><img src="/photos/slide6.jpg" alt="" loading="lazy"></div>
-      <div class="fs-slide"><img src="/photos/slide7.jpg" alt="" loading="lazy"></div>
-      <div class="fs-slide"><img src="/photos/slide8.jpg" alt="" loading="lazy"></div>
-      <div class="fs-slide"><img src="/photos/slide9.jpg" alt="" loading="lazy"></div>
-      <div class="fs-slide"><img src="/photos/slide10.jpg" alt="" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide1.jpg" alt="Participants in matching purple polo shirts seated at round tables in a large hall, talking in groups; one person is raising a finger" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide2.jpg" alt="Two people in purple shirts talking closely, one holding a sheet of paper and a pen, with open laptops behind them" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide3.jpg" alt="A person in a grey hoodie typing on a laptop at a round table, with other people and laptops around the table" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide4.jpg" alt="Five people in purple polo shirts and lanyards standing in a row in front of a world map made of coins on a white wall" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide5.jpg" alt="A man in a navy blazer and a young man in a grey shirt holding a white envelope together on a stage, in front of a Design Spark Challenge banner" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide6.jpg" alt="Five men gathered around two open laptops in a hall with large windows; one wears a suit and a chief guest badge" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide7.jpg" alt="A young man in a dark suit receiving a small item from a man in a cream shirt, with a woman in a purple and gold saree standing beside them in front of a projected slide" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide8.jpg" alt="Four people standing in front of a green chalkboard reading PRODOTHON'25; three hold certificates and one holds a small wheeled robot" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide9.jpg" alt="Two young men standing outside a stone-clad building under a flowering tree, each holding a certificate and a wooden plaque" loading="lazy"></div>
+      <div class="fs-slide"><img src="/photos/slide10.jpg" alt="Five young men standing close together and smiling in front of a blue Presidio Innovation Sprint poster" loading="lazy"></div>
     </div>
   </div>
-  <button class="fs-btn fs-next" aria-label="Next">&#8250;</button>
+  <button class="fs-btn fs-next" type="button" aria-label="Next">&#8250;</button>
   <div class="fs-dots" id="fsDots"></div>
 </div>
 
@@ -74,9 +75,15 @@
   const total = slides.length;
   if (!total) return;
 
+  const pauseBtn = document.getElementById('fsPause');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ICON_PAUSE = '<svg viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1" width="3" height="10"/><rect x="7.5" y="1" width="3" height="10"/></svg>';
+  const ICON_PLAY = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1l8 5-8 5z"/></svg>';
+
   let current = 0;
   let autoTimer = null;
   let touchStartX = 0;
+  let userPaused = reduceMotion;
 
   const goTo = (index) => {
     current = (index + total) % total;
@@ -84,21 +91,36 @@
     dotsContainer.querySelectorAll('.fs-dot').forEach((dot, i) => {
       dot.classList.toggle('active', i === current);
     });
+    slides.forEach((slide, i) => slide.setAttribute('aria-hidden', i === current ? 'false' : 'true'));
   };
 
   const next = () => goTo(current + 1);
   const prev = () => goTo(current - 1);
 
   const startAuto = () => {
-    if (autoTimer) return;
+    if (autoTimer || userPaused) return;
     autoTimer = window.setInterval(next, 4000);
+    track.setAttribute('aria-live', 'off');
   };
 
   const stopAuto = () => {
+    track.setAttribute('aria-live', 'polite');
     if (!autoTimer) return;
     window.clearInterval(autoTimer);
     autoTimer = null;
   };
+
+  const renderPause = () => {
+    pauseBtn.innerHTML = userPaused ? ICON_PLAY : ICON_PAUSE;
+    pauseBtn.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
+  };
+
+  renderPause();
+  pauseBtn.addEventListener('click', () => {
+    userPaused = !userPaused;
+    renderPause();
+    if (userPaused) stopAuto(); else startAuto();
+  });
 
   slides.forEach((_, i) => {
     const dot = document.createElement('button');
@@ -134,6 +156,10 @@
 
   viewport.addEventListener('mouseenter', stopAuto);
   viewport.addEventListener('mouseleave', startAuto);
+  filmstrip.addEventListener('focusin', stopAuto);
+  filmstrip.addEventListener('focusout', (event) => {
+    if (!filmstrip.contains(event.relatedTarget)) startAuto();
+  });
 
   viewport.addEventListener('touchstart', (event) => {
     touchStartX = event.changedTouches[0].clientX;
