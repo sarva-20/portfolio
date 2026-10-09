@@ -40,14 +40,14 @@ Output goes into the `public/` directory.
 
 ## Deploy to Vercel
 
-1. Push this repo to GitHub
-2. Import in Vercel → New Project
-3. Set Framework Preset to **Other**
-4. Set Build Command: `zola build`
-5. Set Output Directory: `public`
-6. Deploy
+Settings in the Vercel dashboard:
 
-### vercel.json (already included):
+- Framework Preset: **Other**
+- Build Command: `zola build`
+- Output Directory: `public`
+- Zola version: pinned by `ZOLA_VERSION` in `vercel.json` (currently 0.19.2)
+
+`vercel.json`:
 ```json
 {
   "build": {
@@ -67,32 +67,22 @@ static/resume.pdf
 
 It will be served at `/resume.pdf`.
 
-## Add certifications later
-
-Edit `templates/about.html` — there's a commented section ready for certifications.
-
 ## Project structure
 
 ```
 sarva-portfolio/
 ├── config.toml          # Site config
+├── vercel.json          # Pins ZOLA_VERSION
+├── CLAUDE.md            # Standing rules for contributors / AI agents
 ├── sass/
 │   └── main.scss        # All styles
-├── templates/
-│   ├── base.html        # Layout with sidebar
-│   ├── index.html       # Home page
-│   ├── posts.html       # Posts page (Medium links)
-│   ├── projects.html    # Projects page
-│   ├── about.html       # About page
-│   └── resume.html      # Resume page
-├── content/
-│   ├── _index.md
-│   ├── about.md
-│   ├── resume.md
-│   ├── posts/
-│   │   └── _index.md
-│   └── projects/
-│       └── _index.md
+├── templates/           # base, index, posts, projects, about, resume
+├── content/             # Front matter only; each page picks its template
 └── static/
-    └── resume.pdf       # ← drop your PDF here
+    ├── resume.pdf       # Served at /resume.pdf
+    └── photos/          # About-page carousel (slide1-10.jpg)
 ```
+
+## Conventions
+
+See [CLAUDE.md](CLAUDE.md) for stack constraints, design tokens and the per-task workflow.
