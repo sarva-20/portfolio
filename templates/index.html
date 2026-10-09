@@ -28,12 +28,13 @@
   
   <p>I build with GenAI, agentic systems, and ML. Undergrad — Bachelor of Technology at KPR Institute of Engineering and Technology, Coimbatore.</p>
 
-  <div class="gh-graph home-graph" style="margin-left: auto; margin-right: auto;">
+  <div class="gh-graph home-graph">
     <img
       src="https://raw.githubusercontent.com/sarva-20/sarva-20/output/github-snake.svg"
-      alt="GitHub contribution snake"
+      alt="Snake animation eating through the GitHub contribution graph of sarva-20"
       class="gh-snake"
       loading="lazy"
+      onerror="this.closest('.gh-graph').hidden = true"
     />
   </div>
 
@@ -47,9 +48,10 @@
 <script>
 (() => {
   const flame = document.querySelector('.home-flame');
-  const core = flame ? flame.querySelector('.home-flame-core') : null;
+  const core = flame ? flame.querySelector('.home-flame-inner') : null;
   if (!flame || !core) return;
   if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const maxShift = 1.4;
 
@@ -84,22 +86,32 @@
   const rotate = () => {
     currentIndex = (currentIndex + 1) % taglines.length;
     taglineText.textContent = taglines[currentIndex];
+    // restart the CSS animation
+    taglineText.style.animation = 'none';
+    void taglineText.offsetWidth;
+    taglineText.style.animation = '';
   };
   
   setInterval(rotate, 2500);
 })();
 
-fetch('https://github-contributions-api.jogruber.de/v4/sarva-20?y=last')
-  .then(r => r.json())
-  .then(data => {
-    const total = data.total && data.total.lastYear
-      ? data.total.lastYear
-      : null;
-    const link = document.getElementById('gh-contrib-link');
-    if (link && total) {
-      link.textContent = total + ' contributions in the last year · sarva-20 ↗';
-    }
-  })
-  .catch(() => {});
+(() => {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 6000);
+  fetch('https://github-contributions-api.jogruber.de/v4/sarva-20?y=last', { signal: controller.signal })
+    .then(r => {
+      if (!r.ok) throw new Error('contributions request failed');
+      return r.json();
+    })
+    .then(data => {
+      const total = data && data.total && data.total.lastYear ? data.total.lastYear : null;
+      const link = document.getElementById('gh-contrib-link');
+      if (link && total) {
+        link.textContent = total + ' contributions in the last year · sarva-20 ↗';
+      }
+    })
+    .catch(() => {}) // keep the default link text
+    .finally(() => clearTimeout(timer));
+})();
 </script>
 {% endblock content %}
