@@ -1,4 +1,4 @@
-# sarva-portfolio
+# Sarvatarshan's Portfolio <3
 
 Personal portfolio built with [Zola](https://www.getzola.org) — a Rust-based static site generator.
 
