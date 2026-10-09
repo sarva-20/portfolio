@@ -1,4 +1,4 @@
-base_url = "https://sarva.vercel.app"
+base_url = "https://thesarvatarshan.vercel.app"
 title = "Sarvatarshan Sankar"
 description = "Engineer and builder — GenAI, Agentic AI, ML"
 default_language = "en"
@@ -10,7 +10,11 @@ minify_html = false
 
 [extra]
 author = "Sarvatarshan Sankar"
-email = "sarva.visions@gmail.com"
+email = "sarvatarshan20@gmail.com"
 github = "https://github.com/sarva-20"
 linkedin = "https://linkedin.com/in/sarvatarshan20"
+medium = "https://medium.com/@sarva-20"
 location = "Coimbatore, IN"
+og_image = "/og.png"
+latitude = 11.0168
+longitude = 76.9558
